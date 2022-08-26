@@ -705,6 +705,9 @@ let LokiOperatorPackageMap = {
 
 "use strict";
 
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ collection_Collection; });
+
 // EXTERNAL MODULE: ./packages/loki/src/event_emitter.ts
 var event_emitter = __webpack_require__(5);
 
@@ -2456,7 +2459,6 @@ var ranged_indexes = __webpack_require__(4);
 var common_plugin = __webpack_require__(1);
 
 // CONCATENATED MODULE: ./packages/loki/src/collection.ts
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return collection_Collection; });
 
 
 
@@ -3864,6 +3866,9 @@ class collection_Collection extends event_emitter["a" /* LokiEventEmitter */] {
 
 "use strict";
 
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ RangedIndexFactoryMap; });
+
 // CONCATENATED MODULE: ./packages/loki/src/avl_index.ts
 /**
  * LokiDB AVL Balanced Binary Tree Index implementation.
@@ -4695,7 +4700,6 @@ class AvlTreeIndex {
 }
 
 // CONCATENATED MODULE: ./packages/loki/src/ranged_indexes.ts
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RangedIndexFactoryMap; });
 
 /** Map/Register of named factory functions returning IRangedIndex instances */
 let RangedIndexFactoryMap = {
@@ -5750,7 +5754,7 @@ g = (function() {
 
 try {
 	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
+	g = g || new Function("return this")();
 } catch (e) {
 	// This works if the window reference is available
 	if (typeof window === "object") g = window;

@@ -105,7 +105,11 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__0__;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "EnglishAnalyzer", function() { return /* reexport */ EnglishAnalyzer; });
 
 // EXTERNAL MODULE: external "@lokidb/full-text-search-language"
 var full_text_search_language_ = __webpack_require__(0);
@@ -332,7 +336,6 @@ class EnglishAnalyzer {
 }
 
 // CONCATENATED MODULE: ./packages/full-text-search-language-en/src/index.ts
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "EnglishAnalyzer", function() { return EnglishAnalyzer; });
 
 
 /* harmony default export */ var src = __webpack_exports__["default"] = (EnglishAnalyzer);

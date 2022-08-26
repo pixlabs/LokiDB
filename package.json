@@ -42,7 +42,7 @@
   "devDependencies": {
     "@types/elasticsearch": "^5.0.24",
     "@types/jasmine": "^2.8.8",
-    "@types/node": "^8.10.19",
+    "@types/node": "8.10.19",
     "cash": "^0.8.0",
     "codecov": "^3.0.2",
     "conventional-changelog": "^2.0.1",

@@ -1,4 +1,4 @@
 import { PartitioningAdapter } from "./partitioning_adapter";
 
-export {PartitioningAdapter};
+export { PartitioningAdapter };
 export default PartitioningAdapter;

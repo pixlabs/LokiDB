@@ -12,7 +12,7 @@ FullTextSearch["TokenFilter"] = {};
 FullTextSearch["TokenFilter"]["lowercaseTokenFilter"] = lowercaseTokenFilter;
 FullTextSearch["TokenFilter"]["uppercaseTokenFilter"] = uppercaseTokenFilter;
 
-export {FullTextSearch,
+export { FullTextSearch,
   analyze, StandardAnalyzer,
   whitespaceTokenizer,
   lowercaseTokenFilter, uppercaseTokenFilter

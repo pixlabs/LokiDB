@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -120,14 +120,49 @@ function create() {
  */
 const PLUGINS = create();
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1)))
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "FullTextSearch", function() { return /* reexport */ full_text_search_FullTextSearch; });
+__webpack_require__.d(__webpack_exports__, "analyze", function() { return /* reexport */ analyze; });
+__webpack_require__.d(__webpack_exports__, "StandardAnalyzer", function() { return /* reexport */ analyzer_StandardAnalyzer; });
+__webpack_require__.d(__webpack_exports__, "whitespaceTokenizer", function() { return /* reexport */ whitespaceTokenizer; });
+__webpack_require__.d(__webpack_exports__, "lowercaseTokenFilter", function() { return /* reexport */ lowercaseTokenFilter; });
+__webpack_require__.d(__webpack_exports__, "uppercaseTokenFilter", function() { return /* reexport */ uppercaseTokenFilter; });
 
 // CONCATENATED MODULE: ./packages/full-text-search/src/analyzer/tokenizer.ts
 /**
@@ -157,16 +192,57 @@ function uppercaseTokenFilter(token) {
     return token.toUpperCase();
 }
 
+// CONCATENATED MODULE: ./packages/full-text-search/src/analyzer/extractor.ts
+/**
+ * Extract string from a single field of the document.
+ * @param {string} field - the document field
+ * @returns {Extractor} - the extractor
+ */
+function fieldExtractor(field) {
+    return (doc) => {
+        if (typeof doc === "string")
+            return doc;
+        const value = doc[field];
+        if (!value)
+            return null;
+        if (typeof value !== "string") {
+            // Convert number to string.
+            if (typeof value === "number") {
+                return value.toString();
+            }
+            else {
+                throw TypeError("Unsupported field type for full text search.");
+            }
+        }
+        return value;
+    };
+}
+function toStringExtractor(doc) {
+    if (typeof doc === "string")
+        return doc;
+    return doc.toString();
+}
+
 // CONCATENATED MODULE: ./packages/full-text-search/src/analyzer/analyzer.ts
+
 
 
 /**
  * Analyzes a given string.
  * @param {Analyzer} analyzer - the analyzer
- * @param {string} str - the string
+ * @param {string} doc - the document
  * @returns {string[]} - the tokens
  */
-function analyze(analyzer, str) {
+function analyze(analyzer, doc) {
+    let str = doc;
+    if (analyzer.extractor) {
+        str = analyzer.extractor(doc);
+    }
+    if (!str)
+        return [];
+    if (typeof str !== "string") {
+        str = str.toString();
+    }
     if (analyzer.char_filter) {
         for (let j = 0; j < analyzer.char_filter.length; j++) {
             str = analyzer.char_filter[j](str);
@@ -188,6 +264,7 @@ function analyze(analyzer, str) {
  */
 class analyzer_StandardAnalyzer {
     constructor() {
+        this.extractor = toStringExtractor;
         this.tokenizer = whitespaceTokenizer;
         this.token_filter = [lowercaseTokenFilter];
     }
@@ -236,20 +313,20 @@ class inverted_index_InvertedIndex {
         ({
             store: this._store = true,
             optimizeChanges: this._optimizeChanges = true,
-            analyzer: this.analyzer = new analyzer_StandardAnalyzer()
+            analyzer: this.analyzer = new analyzer_StandardAnalyzer(),
         } = options);
     }
     /**
      * Adds defined fields of a document to the inverted index.
-     * @param {string} field - the field to add
+     * @param {string} doc - the document to add
      * @param {number} docId - the doc id of the field
      */
-    insert(field, docId) {
+    insert(doc, docId) {
         if (this.docStore.has(docId)) {
             throw Error("Field already added.");
         }
         // Tokenize document field.
-        const fieldTokens = analyze(this.analyzer, field);
+        const fieldTokens = analyze(this.analyzer, doc);
         if (fieldTokens.length == 0) {
             // Add empty field at least to document store for query 'exists'.
             this.docStore.set(docId, { fieldLength: 0 });
@@ -1968,21 +2045,7 @@ class full_text_search_FullTextSearch {
     addDocument(doc, id = doc[this._id]) {
         let fieldNames = Object.keys(this._invIdxs);
         for (let i = 0, fieldName; i < fieldNames.length, fieldName = fieldNames[i]; i++) {
-            let field = doc[fieldName];
-            // Skip null and undefined.
-            if (field === null || field === undefined) {
-                continue;
-            }
-            if (typeof field !== "string") {
-                // Convert number to string.
-                if (typeof field === "number") {
-                    field = field.toString();
-                }
-                else {
-                    throw TypeError("Unsupported field type for full text search.");
-                }
-            }
-            this._invIdxs[fieldName].insert(field, id);
+            this._invIdxs[fieldName].insert(doc, id);
         }
         this._docs.add(id);
         this._idxSearcher.setDirty();
@@ -2028,12 +2091,6 @@ class full_text_search_FullTextSearch {
 }
 
 // CONCATENATED MODULE: ./packages/full-text-search/src/index.ts
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "FullTextSearch", function() { return full_text_search_FullTextSearch; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "analyze", function() { return analyze; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "StandardAnalyzer", function() { return analyzer_StandardAnalyzer; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "whitespaceTokenizer", function() { return whitespaceTokenizer; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "lowercaseTokenFilter", function() { return lowercaseTokenFilter; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "uppercaseTokenFilter", function() { return uppercaseTokenFilter; });
 
 
 
@@ -2048,32 +2105,6 @@ full_text_search_FullTextSearch["TokenFilter"]["lowercaseTokenFilter"] = lowerca
 full_text_search_FullTextSearch["TokenFilter"]["uppercaseTokenFilter"] = uppercaseTokenFilter;
 
 /* harmony default export */ var src = __webpack_exports__["default"] = (full_text_search_FullTextSearch);
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
 
 
 /***/ })

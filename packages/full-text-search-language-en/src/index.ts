@@ -1,3 +1,3 @@
 import { EnglishAnalyzer } from "./english_analyzer";
-export {EnglishAnalyzer};
+export { EnglishAnalyzer };
 export default EnglishAnalyzer;

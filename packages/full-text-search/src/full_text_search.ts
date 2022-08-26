@@ -46,20 +46,7 @@ export class FullTextSearch {
   public addDocument(doc: object, id: InvertedIndex.DocumentIndex = doc[this._id]): void {
     let fieldNames = Object.keys(this._invIdxs);
     for (let i = 0, fieldName; i < fieldNames.length, fieldName = fieldNames[i]; i++) {
-      let field = doc[fieldName];
-      // Skip null and undefined.
-      if (field === null || field === undefined) {
-        continue;
-      }
-      if (typeof field !== "string") {
-        // Convert number to string.
-        if (typeof field === "number") {
-          field = field.toString();
-        } else {
-          throw TypeError("Unsupported field type for full text search.");
-        }
-      }
-      this._invIdxs[fieldName].insert(field, id);
+      this._invIdxs[fieldName].insert(doc, id);
     }
     this._docs.add(id);
     this._idxSearcher.setDirty();

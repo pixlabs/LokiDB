@@ -27,10 +27,10 @@ export declare class InvertedIndex {
     constructor(options?: InvertedIndex.FieldOptions);
     /**
      * Adds defined fields of a document to the inverted index.
-     * @param {string} field - the field to add
+     * @param {string} doc - the document to add
      * @param {number} docId - the doc id of the field
      */
-    insert(field: string, docId: InvertedIndex.DocumentIndex): void;
+    insert(doc: object | string, docId: InvertedIndex.DocumentIndex): void;
     /**
      * Removes all relevant terms of a document from the inverted index.
      * @param {number} docId - the document.

@@ -3,5 +3,5 @@ import { Collection } from "./collection";
 
 Loki["Collection"] = Collection;
 
-export {Loki, Collection};
+export { Loki, Collection };
 export default Loki;

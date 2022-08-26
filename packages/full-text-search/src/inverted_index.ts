@@ -47,23 +47,23 @@ export class InvertedIndex {
       {
         store: this._store = true,
         optimizeChanges: this._optimizeChanges = true,
-        analyzer: this.analyzer = new StandardAnalyzer()
+        analyzer: this.analyzer = new StandardAnalyzer(),
       } = options
     );
   }
 
   /**
    * Adds defined fields of a document to the inverted index.
-   * @param {string} field - the field to add
+   * @param {string} doc - the document to add
    * @param {number} docId - the doc id of the field
    */
-  public insert(field: string, docId: InvertedIndex.DocumentIndex): void {
+  public insert(doc: object | string, docId: InvertedIndex.DocumentIndex): void {
     if (this.docStore.has(docId)) {
       throw Error("Field already added.");
     }
 
     // Tokenize document field.
-    const fieldTokens = analyze(this.analyzer, field);
+    const fieldTokens = analyze(this.analyzer, doc);
     if (fieldTokens.length == 0) {
       // Add empty field at least to document store for query 'exists'.
       this.docStore.set(docId, {fieldLength: 0});

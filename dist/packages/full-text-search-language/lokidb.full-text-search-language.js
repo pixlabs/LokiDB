@@ -99,7 +99,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "generateStopWordFilter", function() { return /* reexport */ generateStopWordFilter; });
+__webpack_require__.d(__webpack_exports__, "generateTrimmer", function() { return /* reexport */ generateTrimmer; });
+__webpack_require__.d(__webpack_exports__, "Among", function() { return /* reexport */ Among; });
+__webpack_require__.d(__webpack_exports__, "SnowballProgram", function() { return /* reexport */ SnowballProgram; });
 
 // CONCATENATED MODULE: ./packages/full-text-search-language/src/language.ts
 /*
@@ -388,10 +395,6 @@ class SnowballProgram {
 }
 
 // CONCATENATED MODULE: ./packages/full-text-search-language/src/index.ts
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "generateStopWordFilter", function() { return generateStopWordFilter; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "generateTrimmer", function() { return generateTrimmer; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "Among", function() { return Among; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "SnowballProgram", function() { return SnowballProgram; });
 
 
 

@@ -1,3 +1,3 @@
 import { GermanAnalyzer } from "./german_analyzer";
-export {GermanAnalyzer};
+export { GermanAnalyzer };
 export default GermanAnalyzer;
