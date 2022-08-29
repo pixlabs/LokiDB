@@ -1,5 +1,5 @@
 {
-  "name": "@lokidb/full-text-search",
+  "name": "@pixlabs/loki-full-text-search",
   "description": "A full-text search engine.",
   "author": "Various authors",
   "license": "Apache-2.0",
@@ -10,6 +10,6 @@
   "main": "lokidb.full-text-search.js",
   "types": "./types/full-text-search/src/index.d.ts",
   "optionalDependencies": {
-    "@lokidb/loki": "0"
+    "@pixlabs/lokidb": "0"
   }
 }

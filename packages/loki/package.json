@@ -1,5 +1,5 @@
 {
-  "name": "@lokidb/loki",
+  "name": "@pixlabs/lokidb",
   "description": "Fast document oriented javascript in-memory database",
   "author": "Various authors",
   "license": "MIT",
