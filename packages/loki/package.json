@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/LokiJS-Forge/LokiDB.git"
+    "url": "https://github.com/pixlabs/LokiDB.git"
   },
   "main": "lokidb.loki.js",
   "types": "./types/loki/src/index.d.ts"

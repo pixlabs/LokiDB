@@ -865,7 +865,7 @@ export class Collection<TData extends object = object, TNested extends object = 
 
       // FullTextSearch.
       if (this._fullTextSearch !== null) {
-        this._fullTextSearch.updateDocument(doc, position);
+        this._fullTextSearch.updateDocument(doc, doc.$loki);
       }
 
       this.commit();
@@ -960,7 +960,7 @@ export class Collection<TData extends object = object, TNested extends object = 
 
       // FullTextSearch.
       if (this._fullTextSearch !== null) {
-        this._fullTextSearch.addDocument(newDoc, addedPos);
+        this._fullTextSearch.addDocument(newDoc, newDoc.$loki);
       }
 
       this.commit();
@@ -1057,7 +1057,7 @@ export class Collection<TData extends object = object, TNested extends object = 
 
       // FullTextSearch.
       if (this._fullTextSearch !== null) {
-        this._fullTextSearch.removeDocument(doc, position);
+        this._fullTextSearch.removeDocument(doc, doc.$loki);
       }
 
       this.commit();

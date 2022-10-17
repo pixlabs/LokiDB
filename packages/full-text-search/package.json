@@ -5,11 +5,11 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/LokiJS-Forge/LokiDB.git"
+    "url": "https://github.com/pixlabs/LokiDB.git"
   },
   "main": "lokidb.full-text-search.js",
   "types": "./types/full-text-search/src/index.d.ts",
   "optionalDependencies": {
-    "@pixlabs/lokidb": "0"
+    "@pixlabs/lokidb": "2.1.3"
   }
 }

@@ -586,8 +586,9 @@ export class ResultSet<T extends object = object> {
         this._scoring = this._collection._fullTextSearch.search(queryObject.$fts as FullTextSearchQuery);
         let keys = Object.keys(this._scoring);
         for (let i = 0; i < keys.length; i++) {
-          if (filter.indexOf(+keys[i]) !== -1) {
-            result.push(+keys[i]);
+          const row = this._collection.get(keys[i], true)[1];
+          if (filter.indexOf(row) !== -1) {
+            result.push(row);
           }
         }
       } else if (this._collection._constraints.unique[property] !== undefined && operator === "$eq") {
@@ -622,7 +623,8 @@ export class ResultSet<T extends object = object> {
       this._scoring = this._collection._fullTextSearch.search(queryObject.$fts as FullTextSearchQuery);
       let keys = Object.keys(this._scoring);
       for (let i = 0; i < keys.length; i++) {
-        result.push(+keys[i]);
+        const row = this._collection.get(keys[i], true)[1];
+        result.push(row);
       }
       return this;
     }
