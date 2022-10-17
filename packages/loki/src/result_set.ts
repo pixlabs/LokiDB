@@ -586,7 +586,7 @@ export class ResultSet<T extends object = object> {
         this._scoring = this._collection._fullTextSearch.search(queryObject.$fts as FullTextSearchQuery);
         let keys = Object.keys(this._scoring);
         for (let i = 0; i < keys.length; i++) {
-          const row = this._collection.get(keys[i], true)[1];
+          const row = this._collection.get(+keys[i], true)[1];
           if (filter.indexOf(row) !== -1) {
             result.push(row);
           }
@@ -623,7 +623,7 @@ export class ResultSet<T extends object = object> {
       this._scoring = this._collection._fullTextSearch.search(queryObject.$fts as FullTextSearchQuery);
       let keys = Object.keys(this._scoring);
       for (let i = 0; i < keys.length; i++) {
-        const row = this._collection.get(keys[i], true)[1];
+        const row = this._collection.get(+keys[i], true)[1];
         result.push(row);
       }
       return this;
